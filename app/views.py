@@ -13,6 +13,6 @@ def index():
     popular_news = get_news('everything')
     top_headlines = get_news('top-headlines')
     news_sources = get_sources()
-    return render_template('index.html', title = title, popular=popular_news, top=top_headlines, sources = news_sources)
+    return render_template('index.html', title = title, popular=popular_news, top=top_headlines, sources=news_sources)
 
 

@@ -10,6 +10,7 @@ base_url = app.config["NEWS_API_BASE_URL"]
 
 News = news.News
 Source = source.Source
+
 # 1
 def get_news(category):
     """
@@ -52,16 +53,19 @@ def process_results(news_list):
 
 def get_sources():
     get_sources_url = 'https://newsapi.org/v2/sources?apiKey={}'.format(api_key)
+
     with urllib.request.urlopen(get_sources_url) as url:
         get_sources_data = url.read()
         get_sources_response = json.loads(get_sources_data)
 
-        sources_results = None
+    sources_results = None
 
-        if get_sources_response['sources']:
-            sources_list = get_sources_response['sources']
-            sources_results = process_sources(sources_list)
+    if get_sources_response['sources']:
+        sources_list = get_sources_response['sources']
+        sources_results = process_sources(sources_list)
+        
     return sources_results
+
 
 def process_sources(sources_list):
     """
@@ -77,8 +81,26 @@ def process_sources(sources_list):
         description = item.get('description')
         language = item.get('language')
         source_object = None
+
         if name and language == 'en':
             source_object = Source(id, name, description)
         sources_results.append(source_object)
     return sources_results
+
+
+def get_source_news(source):
+    # e.g. bbc-news
+    get_source_news_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(source,api_key)
+
+    with urllib.request.urlopen(get_source_news_url) as url:
+        get_source_data = url.read()
+        get_source_response = json.loads(get_source_data)
+
+    source_articles = None
+
+    if get_source_response['articles']:
+        article_list = get_source_response['articles']
+        source_articles = process_results(article_list)
+
+    return source_articles
 

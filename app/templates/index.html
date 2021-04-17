@@ -7,6 +7,12 @@
             {{ macro.displayNewsList(top) }}
         </div>
         <div class="col-md-4">
+            <h2>Our Trusted Sources</h2>
+            {% for item in sources %}
+                <a href="/{{ item.id }}">{{ item.name }}</a>
+                <p></p>
+                  <!-- {{ item.description| truncate(40) }} -->
+            {% endfor %}
 
         </div>
     </div>
