@@ -47,3 +47,17 @@ def process_results(news_list):
             news_object = News(title, author,description, link, image, publish_time)
             news_results.append(news_object)
     return news_results
+
+
+def get_sources():
+    get_sources_url = 'https://newsapi.org/v2/sources?apiKey={}'.format(api_key)
+    with urllib.request.urlopen(get_sources_url) as url:
+        get_sources_data = url.read()
+        get_sources_response = json.loads(get_sources_data)
+
+        sources_results = None
+
+        if get_sources_response['sources']:
+            sources_list = get_sources_response['sources']
+            sources_results = process_sources(sources_list)
+    return sources_results
