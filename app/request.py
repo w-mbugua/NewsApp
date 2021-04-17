@@ -8,6 +8,7 @@ api_key = app.config['NEWS_API_KEY']
 # getting the news base url
 base_url = app.config["NEWS_API_BASE_URL"]
 
+News = news.News
 # 1
 def get_news(category):
     """
@@ -24,3 +25,24 @@ def get_news(category):
         news_list = get_news_response['articles']
         news_results = process_results(news_list)
     return news_results
+
+
+def process_results(news_list):
+    """
+    function that processes news results into a list of objects
+    :param news_list: a list of dictionaries that contain each article details
+    :return: a list of news objects
+    """
+    news_results = []
+
+    for news_item in news_list:
+        title = news_item.get('title')
+        author = news_item.get('author')
+        description = news_item.get('description')
+        link = news_item.get('url')
+        image = news_item.get('urlToImage')
+        publish_time = news_item.get('publishedAt')
+
+        if image:
+            news_object = News(title, author,description, link, image, publish_time)
+            news_results.append(news_object)
