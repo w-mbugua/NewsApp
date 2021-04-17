@@ -1,6 +1,6 @@
 from app import app
 import urllib.request,json
-from .models import news
+from .models import news, source
 
 # Getting api key
 api_key = app.config['NEWS_API_KEY']
@@ -9,6 +9,7 @@ api_key = app.config['NEWS_API_KEY']
 base_url = app.config["NEWS_API_BASE_URL"]
 
 News = news.News
+Source = source.Source
 # 1
 def get_news(category):
     """
@@ -62,5 +63,22 @@ def get_sources():
             sources_results = process_sources(sources_list)
     return sources_results
 
+def process_sources(sources_list):
+    """
+    function to process the resuts we get from the sources endpoint
+    :param sources_list: sources_list, a list of dictionaries containing each source information
+    :return: a list of objects
+    """
+    sources_results = []
 
+    for item in sources_list:
+        id = item.get('id')
+        name = item.get('name')
+        description = item.get('description')
+        language = item.get('language')
+        source_object = None
+        if name and language == 'en':
+            source_object = Source(id, name, description)
+        sources_results.append(source_object)
+    return sources_results
 
