@@ -12,4 +12,4 @@ def index():
     title = 'Home - For Current Global News'
     popular_news = get_news('everything')
     top_headlines = get_news('top-headlines')
-    return render_template('index.html', title = title, popular = popular_news, top = top_headlines)
+    return render_template('index.html', title = title, popular=popular_news, top=top_headlines)
