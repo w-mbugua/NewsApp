@@ -120,4 +120,20 @@ def get_category_news(category):
     return category_news
 
 
+def get_covid_news():
+    get_covid_news_url = 'https://newsapi.org/v2/top-headlines?q=covid&apiKey={}'
+
+    with urllib.request.urlopen(get_covid_news_url) as url:
+        covid_data = url.read()
+        covid_response = json.loads(covid_data)
+
+    covid_articles = None
+    if covid_response['articles']:
+        covid_articles_list = covid_response['articles']
+        covid_articles = process_results(covid_articles_list)
+
+    return covid_articles
+
+
+
 
