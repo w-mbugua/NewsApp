@@ -4,17 +4,20 @@
 {% block styles%}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&family=Poppins:wght@300&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
+<h1 style="text-transform: uppercase; padding: 15px; font-size: 30px; text-align: center; font-family: 'Philosopher', sans-serif; letter-spacing: 5px;">Top headlines</h1>
     <div class="row">
         <div class="col-md-8">
             {{ macro.displayNewsList(top) }}
         </div>
-        <div class="col-md-4">
-            <h2>Our Trusted Sources</h2>
+        <div class="col-md-4" style="background-color: #FFE66D; color: black;">
+            <h2 style="font-family: 'Philosopher', sans-serif; text-transform: capitalize; ">browse by source</h2>
             {% for item in sources %}
-                <a href="/{{ item.id }}">{{ item.name }}</a>
+                <a style="font-family: 'Poppins', sans-serif;" href="/{{ item.id }}">{{ item.name }}</a>
                 <p></p>
                   <!-- {{ item.description| truncate(40) }} -->
             {% endfor %}

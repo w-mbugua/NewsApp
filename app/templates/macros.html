@@ -1,20 +1,22 @@
 
 {% macro displayNewsList(news_list) %}
   {% for item in news_list %}
-      <div class="card mb-3" style="min-width: 540px;">
+      <div class="card mb-3" style="min-width: 540px; font-family: 'Poppins', sans-serif;">
         <div class="row g-0">
           <div class="col-md-4">
-              <img src="{{ item.image }}" alt="{{ item.title }} poster" class="img-responsive">
+              <img style="max-height: 200px;" src="{{ item.image }}" alt="{{ item.title }} poster" class="img-responsive">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h3 class="card-title"><a href="{{ item.link }}">{{ item.title }}</a></h3>
+              <h3 class="card-title"><a style="text-decoration: none;" href="{{ item.link }}">{{ item.title }}</a></h3>
                 <h5>By: {{ item.author }}</h5>
-              <p class="card-text">{{ item.description }}</p>
+              <p class="card-text" style="line-height: 150%;">{{ item.description }}</p>
               <p class="card-text"><small class="text-muted">Published: {{ item.publish_time }}</small></p>
             </div>
           </div>
         </div>
       </div>
+   
+      <hr>
   {% endfor %}
 {% endmacro %}

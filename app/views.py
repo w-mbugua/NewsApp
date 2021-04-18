@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template
-from .request import get_news, get_sources, get_source_news, get_category_news
+from .request import get_news, get_sources, get_source_news, get_category_news, get_covid_news
 
 #views
 @app.route('/')
@@ -30,5 +30,13 @@ def per_source(source):
 def view_category(category):
     category_news = get_category_news(category)
     title = f"{category} news"
-    return render_template('category.html', title = title, news_items = category_news)
+    return render_template('category.html', title=title, news_items=category_news)
 
+@app.route('/updates/covid')
+def covid_news():
+    """
+    function that returns news about COVID-19
+    """
+    pandemic_news = get_covid_news()
+    title = "Covid News"
+    return render_template("pan.html", title=title, covid=pandemic_news)

@@ -1,6 +1,7 @@
 from app import app
 import urllib.request,json
 from .models import news, source
+import datetime
 
 # Getting api key
 api_key = app.config['NEWS_API_KEY']
@@ -46,6 +47,9 @@ def process_results(news_list):
         publish_time = news_item.get('publishedAt')
 
         if image:
+           
+            publish_time = publish_time[:10]
+
             news_object = News(title, author,description, link, image, publish_time)
             news_results.append(news_object)
     return news_results
@@ -121,7 +125,7 @@ def get_category_news(category):
 
 
 def get_covid_news():
-    get_covid_news_url = 'https://newsapi.org/v2/top-headlines?q=covid&apiKey={}'
+    get_covid_news_url = 'https://newsapi.org/v2/top-headlines?q=covid&apiKey={}'.format(api_key)
 
     with urllib.request.urlopen(get_covid_news_url) as url:
         covid_data = url.read()
