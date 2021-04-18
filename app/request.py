@@ -104,3 +104,20 @@ def get_source_news(source):
 
     return source_articles
 
+
+def get_category_news(category):
+    get_category_url = 'https://newsapi.org/v2/top-headlines?language=en&category={}&apiKey={}'.format(category, api_key)
+
+    with urllib.request.urlopen(get_category_url) as url:
+        category_data = url.read()
+        category_response = json.loads(category_data)
+
+    category_news = None
+    if category_response['articles']:
+        article_list = category_response['articles']
+        category_news = process_results(article_list)
+
+    return category_news
+
+
+
