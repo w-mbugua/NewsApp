@@ -1,9 +1,9 @@
-from app import app
-from flask import render_template
-from .request import get_news, get_sources, get_source_news, get_category_news, get_covid_news
+from . import main
+from flask import render_template, request,redirect,url_for
+from ..request import get_news, get_sources, get_source_news, get_category_news, get_covid_news
 
 #views
-@app.route('/')
+@main.route('/')
 def index():
     """
     :return: index page and its data
@@ -15,7 +15,7 @@ def index():
     news_sources = get_sources()
     return render_template('index.html', title = title, popular=popular_news, top=top_headlines, sources=news_sources)
 
-@app.route('/<source>')
+@main.route('/<source>')
 def per_source(source):
     """
     view function that returns articles for each source
@@ -26,13 +26,13 @@ def per_source(source):
     title = source
     return render_template('source.html', title=title, source=source_news)
 
-@app.route('/category/<category>')
+@main.route('/category/<category>')
 def view_category(category):
     category_news = get_category_news(category)
     title = f"{category} news"
     return render_template('category.html', title=title, news_items=category_news)
 
-@app.route('/updates/covid')
+@main.route('/updates/covid')
 def covid_news():
     """
     function that returns news about COVID-19

@@ -10,3 +10,11 @@ class News:
         self.link = link
         self.image = image
         self.publish_time = publish_time
+
+class Source:
+
+    def __init__(self, id, name, description):
+        self.id = id
+        self.name = name
+        self.description = description
+
